@@ -334,6 +334,7 @@ _main:
                 add esp, 4
                 jmp num2_input3
 
+        ; Case for Division
         case_4:
             ; display ==== DIVISION ====
             push title5
@@ -451,6 +452,7 @@ _main:
                 add esp, 4
                 jmp num2_input4
         
+        ; default if input is not in the choices
         choiceError:
             ; displays Invalid choice! Please try again.
             push errorMessage3
@@ -460,6 +462,7 @@ _main:
             ; jumps to the start of the loop
             jmp while_start
 
+    ; exit the loop
     while_end: 
         push prompt4
         call _printf
