@@ -29,8 +29,8 @@ section .data
     inputFormat db "%d", 0
 
     ; variables for displaying the error messages
-    errorMessage1 db "Input should only be between -99 to 99. Please enter again a valid input.", 10
-    errorMessage2 db "You cannot divide by 0. Please enter again a valid divisor.", 10
+    errorMessage1 db "Input should only be between -99 to 99. Please enter again a valid input.", 10, 0
+    errorMessage2 db "You cannot divide by 0. Please enter again a valid divisor.", 10, 0
     errorMessage3 db "Invalid choice! Please try again.", 10, 0
 
 section .bss
@@ -122,27 +122,43 @@ _main:
             call _printf
             add esp, 4
 
-            ; displays Enter the first number: 
-            push prompt2
-            call _printf
-            add esp, 4
+            num1_input1:
+                ; displays Enter the first number: 
+                push prompt2
+                call _printf
+                add esp, 4
 
-            ; get user input for num1
-            push num1
-            push inputFormat
-            call _scanf
-            add esp, 8
+                ; get user input for num1
+                push num1
+                push inputFormat
+                call _scanf
+                add esp, 8
 
-            ; displays Enter the second number: 
-            push prompt3
-            call _printf
-            add esp, 4
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num1]
+                cmp ax, 99
+                jg input1RangeError1
+                cmp ax, -99
+                jl input1RangeError1
 
-            ; get user input for num2
-            push num2
-            push inputFormat
-            call _scanf
-            add esp, 8
+            num2_input1:
+                ; displays Enter the second number: 
+                push prompt3
+                call _printf
+                add esp, 4
+
+                ; get user input for num2
+                push num2
+                push inputFormat
+                call _scanf
+                add esp, 8
+
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num2]
+                cmp ax, 99
+                jg input1RangeError2
+                cmp ax, -99
+                jl input1RangeError2
 
             ; add the two numbers
             mov eax, [num1]
@@ -154,6 +170,20 @@ _main:
             call _printf
             add esp, 4
 
+            input1RangeError1:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num1_input1
+
+            input1RangeError2:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num2_input1
+
             ; jumps to the start of the loop
             jmp while_start
 
@@ -164,27 +194,43 @@ _main:
             call _printf
             add esp, 4
 
-            ; displays Enter the first number: 
-            push prompt2
-            call _printf
-            add esp, 4
+            num1_input2:
+                ; displays Enter the first number: 
+                push prompt2
+                call _printf
+                add esp, 4
 
-            ; get user input for num1
-            push num1
-            push inputFormat
-            call _scanf
-            add esp, 8
+                ; get user input for num1
+                push num1
+                push inputFormat
+                call _scanf
+                add esp, 8
 
-            ; displays Enter the second number: 
-            push prompt3
-            call _printf
-            add esp, 4
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num1]
+                cmp ax, 99
+                jg input2RangeError1
+                cmp ax, -99
+                jl input2RangeError1
 
-            ; get user input for num2
-            push num2
-            push inputFormat
-            call _scanf
-            add esp, 8
+            num2_input2:
+                ; displays Enter the second number: 
+                push prompt3
+                call _printf
+                add esp, 4
+
+                ; get user input for num2
+                push num2
+                push inputFormat
+                call _scanf
+                add esp, 8
+
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num2]
+                cmp ax, 99
+                jg input2RangeError2
+                cmp ax, -99
+                jl input2RangeError2
 
             ; subtract the two numbers
             mov eax, [num1]
@@ -196,6 +242,20 @@ _main:
             call _printf
             add esp, 4
 
+            input2RangeError1:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num1_input2
+
+            input2RangeError2:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num2_input2
+
             ; jumps to the start of the loop
             jmp while_start
 
@@ -206,27 +266,43 @@ _main:
             call _printf
             add esp, 4
 
-            ; displays Enter the first number: 
-            push prompt2
-            call _printf
-            add esp, 4
+            num1_input3:
+                ; displays Enter the first number: 
+                push prompt2
+                call _printf
+                add esp, 4
 
-            ; get user input for num1
-            push num1
-            push inputFormat
-            call _scanf
-            add esp, 8
+                ; get user input for num1
+                push num1
+                push inputFormat
+                call _scanf
+                add esp, 8
 
-            ; displays Enter the second number: 
-            push prompt3
-            call _printf
-            add esp, 4
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num1]
+                cmp ax, 99
+                jg input3RangeError1
+                cmp ax, -99
+                jl input3RangeError1
 
-            ; get user input for num2
-            push num2
-            push inputFormat
-            call _scanf
-            add esp, 8
+            num2_input3:
+                ; displays Enter the second number: 
+                push prompt3
+                call _printf
+                add esp, 4
+
+                ; get user input for num2
+                push num2
+                push inputFormat
+                call _scanf
+                add esp, 8
+
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num2]
+                cmp ax, 99
+                jg input3RangeError2
+                cmp ax, -99
+                jl input3RangeError2
 
             ; multiply the value two numbers
             mov eax, [num1]
@@ -239,6 +315,20 @@ _main:
             call _printf
             add esp, 4
 
+            input3RangeError1:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num1_input3
+
+            input3RangeError2:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num2_input3
+
             ; jumps to the start of the loop
             jmp while_start
 
@@ -248,31 +338,45 @@ _main:
             call _printf
             add esp, 4
 
-            ; displays Enter the first number: 
-            push prompt2
-            call _printf
-            add esp, 4
+            num1_input4:
+                ; displays Enter the first number: 
+                push prompt2
+                call _printf
+                add esp, 4
 
-            ; get user input for num1
-            push num1
-            push inputFormat
-            call _scanf
-            add esp, 8
+                ; get user input for num1
+                push num1
+                push inputFormat
+                call _scanf
+                add esp, 8
 
-            ; displays Enter the second number: 
-            push prompt3
-            call _printf
-            add esp, 4
+                ; jumps to error section if num1 is not between -99 and 99
+                mov ax, [num1]
+                cmp ax, 99
+                jg input4RangeError1
+                cmp ax, -99
+                jl input4RangeError1
 
-            ; get user input for num2
-            push num2
-            push inputFormat
-            call _scanf
-            add esp, 8
+            num2_input4:
+                ; displays Enter the second number: 
+                push prompt3
+                call _printf
+                add esp, 4
 
-            mov bx, [num2]
-            cmp bx, 0
-            je zeroDivisionError
+                ; get user input for num2
+                push num2
+                push inputFormat
+                call _scanf
+                add esp, 8
+
+                ; jumps to error section if num1 is not between -99 and 99 or 0
+                mov ax, [num2]
+                cmp ax, 99
+                jg input4RangeError2
+                cmp ax, -99
+                jl input4RangeError2
+                cmp ax, 0
+                je zeroDivisionError
 
             ; clears the edx register
             mov edx, 0
@@ -289,14 +393,19 @@ _main:
             call _printf
             add esp, 8
 
-            ; jumps to the start of the loop
-            jmp while_start
+            input4RangeError1:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num1_input4
 
-        inputRangeError:
-            ; displays Input should only be between -99 to 99. Please enter again a valid input.
-            push errorMessage1
-            call _printf
-            add esp, 4
+            input4RangeError2:
+                ; displays Input should only be between -99 to 99. Please enter again a valid input.
+                push errorMessage1
+                call _printf
+                add esp, 4
+                jmp num2_input4
 
             ; jumps to the start of the loop
             jmp while_start
