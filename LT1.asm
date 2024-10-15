@@ -33,6 +33,10 @@ section .data
     errorMessage2 db "You cannot divide by 0. Please enter again a valid divisor.", 10
 
 section .bss
+    ; defines a reserve byte for the user input
+    num1 resb 4
+    num2 resb 4
+    choice resb 2
 
 section .text
     ; external functions for input and output
@@ -43,35 +47,107 @@ section .text
     global _main 
 
 _main:
-    loop_start:
+    while_start:
+        ; displays ==== SIMPLE CALCULATOR by YourName ====
         push title1
         call _printf
         add esp, 4
 
+        ; displays [0] Exit
         push menu1
         call _printf
         add esp, 4
 
+        ; displays [1] Add
         push menu2
         call _printf
         add esp, 4
 
+        ; displays [2] Subtract
         push menu3
         call _printf
         add esp, 4
 
+        ; displays [3] Multiply
         push menu4
         call _printf
         add esp, 4
 
+        ; displays [4] Divide
         push menu5
         call _printf
         add esp, 4
 
+        ; displays Enter choice:
         push prompt1
         call _printf
         add esp, 4
 
-        
+        ; get user input for choice
+        push choice
+        push inputFormat
+        call _scanf
+        add esp, 8
 
-        
+        ; exit loop if choice is 0
+        cmp choice, 0
+        je while_end
+
+        ; jump to case_1 if choice is 1
+        cmp choice, 1
+        je case_1
+
+        ; cmp choice, 2
+        ; je case_2
+
+        ; cmp choice, 3
+        ; je case_3
+
+        ; cmp choice, 4
+        ; je case_4
+
+        ; Case for addition
+        case_1:
+            ; display ==== ADDITION ====
+            push title2
+            call _printf
+            add esp, 4
+
+            ; displays Enter the first number: 
+            push prompt2
+            call _printf
+            add esp, 4
+
+            ; get user input for num1
+            push num1
+            push inputFormat
+            call _scanf
+            add esp, 8
+
+            ; displays Enter the second number: 
+            push prompt3
+            call _printf
+            add esp, 4
+
+            ; get user input for num2
+            push num2
+            push inputFormat
+            call _scanf
+            add esp, 8
+
+            ; add the two numbers
+            mov eax, num1
+            add eax, num2
+
+            ; displays Sum: <sum>
+            push num1
+            push sum
+            call _printf
+            add esp, 4
+
+        jmp while_start
+
+    while_end: 
+        push prompt4
+        call _printf
+        add esp, 4
