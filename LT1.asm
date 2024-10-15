@@ -18,6 +18,7 @@ section .data
     diff db "Difference: %d", 10, 0
     prod db "Product: %d", 10, 0
     quot db "Quotient: %d", 10, "Remainder: %d", 10, 0
+    quotient_sign db 1
 
     ; variables for displaying the prompts
     prompt1 db "Enter choice: ", 0
@@ -357,6 +358,18 @@ _main:
                 jg input4RangeError1
                 cmp eax, -99
                 jl input4RangeError1
+                
+                ; skip negation if input is positive
+                cmp eax, eax
+                jns num2_input4
+
+                ; make the num1 positive and flip the quotient sign
+                mov ebx, [num1]
+                neg ebx
+                mov [num2], ebx
+
+                mov ecx, [quotient_sign]
+                neg ecx
 
             num2_input4:
                 ; displays Enter the second number: 
@@ -370,15 +383,27 @@ _main:
                 call _scanf
                 add esp, 8
 
-                ; jumps to error section if num1 is not between -99 and 99 or 0
+                ; jumps to error section if num2 is not between -99 and 99 or 0
                 mov eax, [num2]
                 cmp eax, 99
                 jg input4RangeError2
                 cmp eax, -99
                 jl input4RangeError2
                 cmp eax, 0
-                je zeroDivisionError
+                jz zeroDivisionError
+                
+                ; skip negation if input is positive
+                jge input_done
+            
+                ; make the num2 positive and flip the quotient sign
+                mov ebx, [num2]
+                neg ebx
+                mov [num2], ebx
 
+                mov ecx, [quotient_sign]
+                neg ecx
+
+            input_done:
             ; clears the edx register
             mov edx, 0
 
@@ -387,6 +412,14 @@ _main:
             mov ebx, [num2]
             div ebx
 
+            ; skip to printing if quotient_sign is positive
+            cmp ecx, 0
+            jge display_quotient
+
+            ; negate the quotient
+            neg eax
+
+            display_quotient:
             ; displays Quotient: <quot>
             push edx
             push eax
@@ -411,14 +444,12 @@ _main:
                 add esp, 4
                 jmp num2_input4
 
-        zeroDivisionError:
-            ; displays You cannot divide by 0. Please enter again a valid divisor.
-            push errorMessage2
-            call _printf
-            add esp, 4
-
-            ; jumps to the start of the loop
-            jmp while_start
+            zeroDivisionError:
+                ; displays You cannot divide by 0. Please enter again a valid divisor.
+                push errorMessage2
+                call _printf
+                add esp, 4
+                jmp num2_input4
         
         choiceError:
             ; displays Invalid choice! Please try again.
@@ -434,4 +465,4 @@ _main:
         call _printf
         add esp, 4
 
-    
+    ret
