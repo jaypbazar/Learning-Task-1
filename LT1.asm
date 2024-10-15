@@ -90,28 +90,28 @@ _main:
         call _scanf
         add esp, 8
 
-        ; store the valud of choice variable to ax register
-        mov ax, [choice]
+        ; store the valud of choice variable to eax register
+        mov eax, [choice]
 
         ; exit loop if choice is 0 
-        cmp ax, 0
+        cmp eax, 0
         je while_end
         jl choiceError ; print error if choice < 0
 
         ; jump to case_1 if choice is 1
-        cmp ax, 1
+        cmp eax, 1
         je case_1
 
         ; jump to case_1 if choice is 2
-        cmp ax, 2
+        cmp eax, 2
         je case_2
 
         ; jump to case_1 if choice is 3
-        cmp ax, 3
+        cmp eax, 3
         je case_3
 
         ; jump to case_1 if choice is 4
-        cmp ax, 4
+        cmp eax, 4
         je case_4
         jg choiceError ; print error if choice > 4
         
@@ -135,10 +135,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num1]
-                cmp ax, 99
+                mov eax, [num1]
+                cmp eax, 99
                 jg input1RangeError1
-                cmp ax, -99
+                cmp eax, -99
                 jl input1RangeError1
 
             num2_input1:
@@ -154,10 +154,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num2]
-                cmp ax, 99
+                mov eax, [num2]
+                cmp eax, 99
                 jg input1RangeError2
-                cmp ax, -99
+                cmp eax, -99
                 jl input1RangeError2
 
             ; add the two numbers
@@ -169,6 +169,9 @@ _main:
             push sum
             call _printf
             add esp, 4
+
+            ; jumps to the start of the loop
+            jmp while_start
 
             input1RangeError1:
                 ; displays Input should only be between -99 to 99. Please enter again a valid input.
@@ -184,8 +187,6 @@ _main:
                 add esp, 4
                 jmp num2_input1
 
-            ; jumps to the start of the loop
-            jmp while_start
 
         ; Case for sutraction
         case_2:
@@ -207,10 +208,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num1]
-                cmp ax, 99
+                mov eax, [num1]
+                cmp eax, 99
                 jg input2RangeError1
-                cmp ax, -99
+                cmp eax, -99
                 jl input2RangeError1
 
             num2_input2:
@@ -226,10 +227,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num2]
-                cmp ax, 99
+                mov eax, [num2]
+                cmp eax, 99
                 jg input2RangeError2
-                cmp ax, -99
+                cmp eax, -99
                 jl input2RangeError2
 
             ; subtract the two numbers
@@ -241,6 +242,9 @@ _main:
             push diff
             call _printf
             add esp, 4
+
+            ; jumps to the start of the loop
+            jmp while_start
 
             input2RangeError1:
                 ; displays Input should only be between -99 to 99. Please enter again a valid input.
@@ -255,9 +259,6 @@ _main:
                 call _printf
                 add esp, 4
                 jmp num2_input2
-
-            ; jumps to the start of the loop
-            jmp while_start
 
         ; Case for multiplication
         case_3:
@@ -279,10 +280,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num1]
-                cmp ax, 99
+                mov eax, [num1]
+                cmp eax, 99
                 jg input3RangeError1
-                cmp ax, -99
+                cmp eax, -99
                 jl input3RangeError1
 
             num2_input3:
@@ -298,10 +299,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num2]
-                cmp ax, 99
+                mov eax, [num2]
+                cmp eax, 99
                 jg input3RangeError2
-                cmp ax, -99
+                cmp eax, -99
                 jl input3RangeError2
 
             ; multiply the value two numbers
@@ -314,6 +315,9 @@ _main:
             push prod
             call _printf
             add esp, 4
+
+            ; jumps to the start of the loop
+            jmp while_start
 
             input3RangeError1:
                 ; displays Input should only be between -99 to 99. Please enter again a valid input.
@@ -328,9 +332,6 @@ _main:
                 call _printf
                 add esp, 4
                 jmp num2_input3
-
-            ; jumps to the start of the loop
-            jmp while_start
 
         case_4:
             ; display ==== DIVISION ====
@@ -351,10 +352,10 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99
-                mov ax, [num1]
-                cmp ax, 99
+                mov eax, [num1]
+                cmp eax, 99
                 jg input4RangeError1
-                cmp ax, -99
+                cmp eax, -99
                 jl input4RangeError1
 
             num2_input4:
@@ -370,12 +371,12 @@ _main:
                 add esp, 8
 
                 ; jumps to error section if num1 is not between -99 and 99 or 0
-                mov ax, [num2]
-                cmp ax, 99
+                mov eax, [num2]
+                cmp eax, 99
                 jg input4RangeError2
-                cmp ax, -99
+                cmp eax, -99
                 jl input4RangeError2
-                cmp ax, 0
+                cmp eax, 0
                 je zeroDivisionError
 
             ; clears the edx register
@@ -393,6 +394,9 @@ _main:
             call _printf
             add esp, 8
 
+            ; jumps to the start of the loop
+            jmp while_start
+
             input4RangeError1:
                 ; displays Input should only be between -99 to 99. Please enter again a valid input.
                 push errorMessage1
@@ -406,9 +410,6 @@ _main:
                 call _printf
                 add esp, 4
                 jmp num2_input4
-
-            ; jumps to the start of the loop
-            jmp while_start
 
         zeroDivisionError:
             ; displays You cannot divide by 0. Please enter again a valid divisor.
