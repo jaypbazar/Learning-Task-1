@@ -1,5 +1,5 @@
 section .data
-    title1 db "==== SIMPLE CALCULATOR by Bazar & Garicia ====", 10
+    title1 db "==== SIMPLE CALCULATOR by Bazar & Garcia ====", 10
     title2 db "==== ADDITION ====", 10
     title3 db "==== SUBTRACTION ====", 10
     title4 db "==== MULTIPLICATION ====", 10
@@ -19,9 +19,10 @@ section .data
     prompt1 db "Enter choice: ", 10
     prompt2 db "Enter the first number: ", 10
     prompt3 db "Enter the second number: ", 10
+    prompt4 db "Thank you!", 10
 
-    errorMessage db "Input should only be between -99 to 99. Please enter again a valid input.", 10
-
+    errorMessage1 db "Input should only be between -99 to 99. Please enter again a valid input.", 10
+    errorMessage2 db "You cannot divide by 0. Please enter again a valid divisor.", 10
 
 section .bss
 
