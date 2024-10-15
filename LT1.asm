@@ -20,9 +20,9 @@ section .data
     quot db "Quotient: %d", 10, 0
 
     ; variables for displaying the prompts
-    prompt1 db "Enter choice: ", 10, 0
-    prompt2 db "Enter the first number: ", 10, 0
-    prompt3 db "Enter the second number: ", 10, 0
+    prompt1 db "Enter choice: ", 0
+    prompt2 db "Enter the first number: ", 0
+    prompt3 db "Enter the second number: ", 0
     prompt4 db "Thank you!", 10, 0
 
     ; format of the inputs
@@ -42,6 +42,36 @@ section .text
     ; defining main funtion
     global _main 
 
-
 _main:
+    loop_start:
+        push title1
+        call _printf
+        add esp, 4
 
+        push menu1
+        call _printf
+        add esp, 4
+
+        push menu2
+        call _printf
+        add esp, 4
+
+        push menu3
+        call _printf
+        add esp, 4
+
+        push menu4
+        call _printf
+        add esp, 4
+
+        push menu5
+        call _printf
+        add esp, 4
+
+        push prompt1
+        call _printf
+        add esp, 4
+
+        
+
+        
