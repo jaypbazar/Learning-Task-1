@@ -6,12 +6,8 @@ section .data
     title4 db "==== MULTIPLICATION ====", 10, 0
     title5 db "==== DIVISION ====", 10, 0
     
-    ; variables for displaying the menu messages
-    menu1 db "[0] Exit", 10, 0
-    menu2 db "[1] Add", 10, 0
-    menu3 db "[2] Subtract", 10, 0
-    menu4 db "[3] Multiply", 10, 0
-    menu5 db "[4] Divide", 10, 0
+    ; variables for displaying the menu
+    menu db "[0] Exit", 10, "[1] Add", 10, "[2] Subtract", 10, "[3] Multiply", 10, "[4] Divide", 10, 0
 
     ; variables for displaying the output messages
     sum db "Sum: %d", 10, 0
@@ -55,28 +51,8 @@ _main:
         call _printf
         add esp, 4
 
-        ; displays [0] Exit
-        push menu1
-        call _printf
-        add esp, 4
-
-        ; displays [1] Add
-        push menu2
-        call _printf
-        add esp, 4
-
-        ; displays [2] Subtract
-        push menu3
-        call _printf
-        add esp, 4
-
-        ; displays [3] Multiply
-        push menu4
-        call _printf
-        add esp, 4
-
-        ; displays [4] Divide
-        push menu5
+        ; displays the menu
+        push menu
         call _printf
         add esp, 4
 
